@@ -1,17 +1,18 @@
 # syntax=docker/dockerfile:1
 
 # Setup base
-FROM node:16-alpine AS base
+FROM node:18-alpine AS base
 WORKDIR /app
 
 # Initalize dependencies
 FROM base AS dependencies
-COPY package.json ./
+COPY package.json package-lock.json ./
+RUN npm install
 
-# Build dependencies
+# Build the app
 FROM dependencies AS builder
 COPY . .
-RUN npm install
+RUN npm run build
 
 # Run the app
 FROM base AS runner
