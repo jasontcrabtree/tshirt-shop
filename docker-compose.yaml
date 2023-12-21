@@ -5,10 +5,12 @@ services:
     container_name: tshirt-shop
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: frontend/Dockerfile
     volumes:
-      - ./src/:/app/src
-      - ./public/:/app/public
+      - ./frontend/src/:/app/src
+      - ./frontend/public/:/app/public
+      - ./frontend:/app
+      - /app/node_modules
     restart: always
     ports:
       - 3000:3000

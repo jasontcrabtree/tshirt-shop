@@ -15,7 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Hello world</h1>
+        <h1>Hello from Docker HMR</h1>
       </main>
     </>
   )
