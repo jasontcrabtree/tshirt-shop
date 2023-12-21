@@ -1,0 +1,23 @@
+.navbar__background {
+  background-color: #f4f4f6;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar__content {
+  padding: 0 16px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media screen and (min-width: 760px) {
+  .navbar__content {
+    justify-content: flex-end;
+    max-width: 1136px;
+    padding: 0;
+  }
+}

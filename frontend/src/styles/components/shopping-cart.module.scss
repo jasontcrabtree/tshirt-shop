@@ -1,0 +1,10 @@
+.cart__button {
+  font-size: 11px;
+  background-color: unset;
+  color: var(--grey-600);
+}
+
+.cart__button:hover {
+  cursor: pointer;
+  color: var(--grey-900);
+}

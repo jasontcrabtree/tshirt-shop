@@ -1,11 +1,14 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from 'next/head';
+import Image from 'next/image';
+import { Inter } from 'next/font/google';
+import { useContext } from 'react';
+import { CartContext } from './_app';
+import ProductView from '@/components/ProductView';
+import useFetchProduct from '@/hooks/use-fetch-product';
 
-const inter = Inter({ subsets: ['latin'] })
+export default function Home(props: any) {
 
-export default function Home() {
+
   return (
     <>
       <Head>
@@ -15,8 +18,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Hello from Docker HMR</h1>
+        <ProductView productId={["1", "2", "4"]} />
       </main>
     </>
-  )
+  );
 }
