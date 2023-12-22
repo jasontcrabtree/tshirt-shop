@@ -7,9 +7,8 @@ services:
       context: .
       dockerfile: frontend/Dockerfile
     volumes:
-      - ./frontend/src/:/app/src
-      - ./frontend/public/:/app/public
-      - ./frontend:/app
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
       - /app/node_modules
     restart: always
     ports:

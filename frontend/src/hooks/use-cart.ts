@@ -1,18 +1,11 @@
-import { useEffect, useState } from 'react';
-
-const sizeIdMapping: { [key: string]: string } = {
-  '1': 'S',
-  '2': 'M',
-  '3': 'L',
-};
+import { CartContext } from '@/pages/_app';
+import { useContext, useState } from 'react';
 
 const useCart = () => {
-  const [cartItems, setCartItems] = useState<{ [key: string]: number }>({});
+  const cart = useContext(CartContext);
+  console.log('cart', cart);
 
-  const cartSize = Object.values(cartItems).reduce(
-    (total, quantity) => total + quantity,
-    0
-  );
+  const [cartItems, setCartItems] = useState<{ [key: string]: number }>(cart);
 
   const addItemToCart = (cartInput: string) => {
     setCartItems(currentCart => {
@@ -23,7 +16,12 @@ const useCart = () => {
     });
   };
 
-  console.log('cartItems', cartItems);
+  const cartSize = Object.values(cartItems).reduce(
+    (total, quantity) => total + quantity,
+    0
+  );
+
+  console.log('cartItems', cartItems, 'size', cartSize);
 
   return {
     cartSize,

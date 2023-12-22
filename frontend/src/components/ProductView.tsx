@@ -1,11 +1,9 @@
-import useCart from '@/hooks/use-cart';
-import useFetchProduct from '@/hooks/use-fetch-product';
-import { CartContext } from '@/pages/_app';
 import styles from '@/styles/components/product-view.module.scss'
-import { InferGetServerSidePropsType } from 'next';
 import Image from 'next/image'
-import { useState, useEffect, useContext } from 'react';
-import toast from 'react-hot-toast';
+import { useState, useEffect } from 'react';
+import LoadingSpinner from './LoadingSpinner';
+import Link from 'next/link';
+import AddItemCart from './AddToCart';
 
 interface ProductDataType {
     id?: number;
@@ -33,47 +31,7 @@ const ProductImages = ({ url, alt, width, height }: {
     )
 }
 
-const AddItemToCart = ({ options }: { options: { id: number, label: string }[] }) => {
-    const [size, setSize] = useState("");
-    const { addItemToCart } = useCart();
-
-    console.log(options);
-
-    if (!options) {
-        return null
-    }
-
-    return (
-        <>
-            <ul className={styles.size__list}>
-                {options.map(({ id, label }) => (
-                    <li key={id}>
-                        <button onClick={() => {
-                            console.log('id', label)
-                            setSize(label);
-
-                        }}>
-                            {label}
-                        </button>
-                    </li>
-                ))
-                }
-            </ul>
-            <button className='button--primary' onClick={() => {
-                if (size) {
-                    addItemToCart(size);
-                } else {
-                    toast.error('Please select a size')
-                }
-            }}>Add to cart</button>
-        </>
-    );
-}
-
 const ProductInformation = ({ title, description, price, sizeOptions }: ProductDataType) => {
-    const cart = useContext(CartContext);
-    console.log('cart', cart)
-
     return (
         <section className={styles.product__information}>
             {title
@@ -87,8 +45,7 @@ const ProductInformation = ({ title, description, price, sizeOptions }: ProductD
             {description
                 ? <p>{description}</p>
                 : ""}
-            <p className={styles.size__label}>Size <span className="required">*</span></p>
-            <AddItemToCart options={sizeOptions} />
+            <AddItemCart options={sizeOptions} />
         </section>
     )
 }
@@ -104,19 +61,23 @@ const ProductView = ({ productId }: { productId: string[] }) => {
                 setData(jsonData)
                 setLoading(false)
             })
-    }, [])
+    }, [productId])
 
     if (isLoading) {
         return (
-            <div>
-                Loading
+            <div className={styles.product__fallback}>
+                <LoadingSpinner size={40} />
             </div>
         )
     }
 
     if (!data) {
         return (
-            <div>No products found</div>
+            <div className={styles.product__fallback}>
+                <h1>
+                    No products found, <Link href="/">try a different product</Link>
+                </h1>
+            </div>
         )
     }
 

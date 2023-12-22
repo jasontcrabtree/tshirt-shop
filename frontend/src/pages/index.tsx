@@ -1,14 +1,11 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
-import { useContext } from 'react';
-import { CartContext } from './_app';
 import ProductView from '@/components/ProductView';
-import useFetchProduct from '@/hooks/use-fetch-product';
+import { v4 as uuidv4 } from 'uuid';
+import getCartByUser from '@/lib/get-cart'
+import cookie from 'cookie'
 
 export default function Home(props: any) {
-
-
   return (
     <>
       <Head>
@@ -22,4 +19,26 @@ export default function Home(props: any) {
       </main>
     </>
   );
+}
+
+
+export function getServerSideProps({ req, res }: { req: NextApiRequest, res: NextApiResponse }): { props: { userCart: Promise<{}>; }; } {
+  let cookies = cookie.parse(req.headers.cookie || "")
+  let userId = cookies.userId;
+
+  console.log('cookies, userId', cookies, userId)
+
+  if (!userId) {
+    userId = uuidv4();
+    res.setHeader('Set-Cookie', cookie.serialize('userId', userId, { path: '/' }))
+  }
+
+  const userCart = getCartByUser(userId);
+
+  console.log('cookies', cookies);
+  return {
+    props: {
+      userCart
+    }
+  }
 }

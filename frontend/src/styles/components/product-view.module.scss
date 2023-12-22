@@ -57,7 +57,7 @@
     flex-direction: row;
     gap: 4px;
 
-    button {
+    .buttonSubtle {
       color: var(--grey-400);
       font-size: 12px;
       background-color: unset;
@@ -66,7 +66,13 @@
       min-height: 38px;
     }
 
-    button:hover {
+    .buttonSubtle:hover {
+      font-weight: 700;
+      color: var(--grey-900);
+      border: 2px solid var(--grey-900);
+    }
+
+    .buttonGhost {
       font-weight: 700;
       color: var(--grey-900);
       border: 2px solid var(--grey-900);
@@ -74,7 +80,22 @@
   }
 }
 
-@media screen and (min-width: 760px) {
+.product__fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  height: calc(100vh - 40px);
+  gap: 8px;
+
+  h1 {
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+@media screen and (min-width: 1080px) {
   .product__layout {
     flex-direction: row;
     gap: 152px;

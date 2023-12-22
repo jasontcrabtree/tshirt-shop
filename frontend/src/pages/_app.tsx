@@ -5,11 +5,10 @@ import { createContext, useContext } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 export const CartContext = createContext({});
-// export const ThemeContext = createContext("");
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <CartContext.Provider value={{ message: 'Cart Context' }}>
+    <CartContext.Provider value={{}}>
       <Toaster position="bottom-center" />
       <NavBar />
       <Component {...pageProps} />
