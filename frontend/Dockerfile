@@ -7,12 +7,16 @@ WORKDIR /app
 # Initalize dependencies
 FROM base AS dependencies
 COPY frontend/package.json frontend/package-lock.json ./
+COPY frontend/next.config.js ./next.config.js
 RUN npm install
 
 # Build the app
 FROM dependencies AS builder
 COPY frontend/ ./
+RUN rm -rf .next
 RUN npm run build
+
+RUN cat next.config.js
 
 # Run the app
 FROM base AS runner
@@ -20,6 +24,8 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
+COPY frontend/next.config.js ./next.config.js
+
 
 EXPOSE 3000
 

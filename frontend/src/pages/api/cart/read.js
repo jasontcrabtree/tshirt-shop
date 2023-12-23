@@ -1,5 +1,12 @@
 import cookie from 'cookie';
 
+async function openDb() {
+  return open({
+    filename: './../../../../../backend/Store.db',
+    driver: sqlite3.Database,
+  });
+}
+
 export default async function handler(req, res) {
   const cookieHeader = req.headers.cookie;
   const parsedCookies = cookie.parse(cookieHeader || '');
@@ -7,24 +14,8 @@ export default async function handler(req, res) {
   console.log('Parsed Cookies:', parsedCookies.userId);
 
   try {
-    const cart = [
-      {
-        title: 'Classic Tee',
-        price: 75,
-        imageURL:
-          'https://mrdevelopertestassets.s3.ap-southeast-2.amazonaws.com/classic-tee.jpg',
-        size: 'S',
-        quantity: 1,
-      },
-      {
-        title: 'Classic Tee',
-        price: 75,
-        imageURL:
-          'https://mrdevelopertestassets.s3.ap-southeast-2.amazonaws.com/classic-tee.jpg',
-        size: 'L',
-        quantity: 5,
-      },
-    ];
+    // Read server-side cart data from DB, filtered by userId (cookie);
+    const cart = [];
 
     res.status(200).json({
       ...cart,

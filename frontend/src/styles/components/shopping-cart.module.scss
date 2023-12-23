@@ -18,23 +18,16 @@
   border: 1px solid var(--grey-400);
   background: var(--grey-000);
   position: relative;
-}
-
-.cartButtonActive::after {
-  content: '';
-  position: absolute;
-  width: 81.13px;
-  height: 4px;
-  bottom: -4px;
-  left: 0px;
+  border-bottom-color: white;
+  margin-bottom: -2px;
   z-index: 2;
-  background-color: var(--grey-000);
 }
-
 .cart__wrapper {
   position: absolute;
   background: var(--grey-000);
   right: 0;
+  top: 38px;
+  z-index: 1;
 }
 
 .cart__wrapper {

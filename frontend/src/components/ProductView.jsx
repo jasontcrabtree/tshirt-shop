@@ -11,7 +11,13 @@ const ProductImages = ({ url, alt, width, height }) => {
   );
 };
 
-const ProductInformation = ({ title, description, price, sizeOptions }) => {
+const ProductInformation = ({
+  title,
+  description,
+  price,
+  sizeOptions,
+  productData,
+}) => {
   return (
     <section className={styles.product__information}>
       {title ? <h1>{title}</h1> : 'Product'}
@@ -19,7 +25,7 @@ const ProductInformation = ({ title, description, price, sizeOptions }) => {
       {price ? <h2>${price.toFixed(2)}</h2> : '$'}
       <div className="divider"></div>
       {description ? <p>{description}</p> : ''}
-      <AddItemCart options={sizeOptions} />
+      <AddItemCart options={sizeOptions} productData={productData} />
     </section>
   );
 };
@@ -69,6 +75,7 @@ const ProductView = ({ productId }) => {
         description={description}
         price={price}
         sizeOptions={sizeOptions}
+        productData={data}
       />
     </section>
   );
